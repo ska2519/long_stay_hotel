@@ -1,0 +1,41 @@
+name: long_stay_hotel
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.0
+  firebase_core: ^0.5.3
+  firebase_auth: ^0.18.4
+
+  intl: ^0.16.1
+  logger: ^0.9.4
+
+  font_awesome_flutter:
+  line_awesome_flutter:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+
+  fonts:
+    - family: Nanum
+      fonts:
+        - asset: fonts/NanumGothic-Regular.ttf
+        - asset: fonts/NanumGothic-Bold.ttf
+          weight: 700
+        - asset: fonts/NanumGothic-ExtraBold.ttf
+          weight: 800
