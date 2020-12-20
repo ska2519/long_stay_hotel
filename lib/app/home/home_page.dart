@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'hotel/hotel_page.dart';
 import 'gift/gift_page.dart';
 import 'account/account_page.dart';
-import 'cupertino_home_scaffold.dart';
 
 import 'tab_item.dart';
 
@@ -12,42 +11,58 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TabItem _currentTab = TabItem.hotel;
+  int _selectedIndex = 0;
+
+  List<Widget> screens = [
+    HotelPage(),
+    GiftPage(),
+    AccountPage(),
+  ];
 
   final Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
     TabItem.hotel: GlobalKey<NavigatorState>(),
     TabItem.gift: GlobalKey<NavigatorState>(),
     TabItem.account: GlobalKey<NavigatorState>(),
   };
-
-  Map<TabItem, WidgetBuilder> get widgetBuilders {
-    return {
-      TabItem.hotel: (_) => HotelPage(),
-      TabItem.gift: (_) => GiftPage(),
-      TabItem.account: (_) => AccountPage(),
-    };
-  }
-
-  void _select(TabItem tabItem) {
-    if (tabItem == _currentTab) {
-      // pop to first route
-      navigatorKeys[tabItem].currentState.popUntil((route) => route.isFirst);
-    } else {
-      setState(() => _currentTab = tabItem);
-    }
+  void _onItemTapped(int index) {
+    setState(() => _selectedIndex = index);
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async =>
-          !await navigatorKeys[_currentTab].currentState.maybePop(),
-      child: CupertinoHomeScaffold(
-        currentTab: _currentTab,
-        onSelectTab: _select,
-        widgetBuilders: widgetBuilders,
-        navigatorKeys: navigatorKeys,
+    return Scaffold(
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: screens,
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        onTap: _onItemTapped,
+        backgroundColor: Colors.white,
+        showSelectedLabels: true,
+        selectedLabelStyle: TextStyle(color: Colors.black),
+
+        //fixedColor: Colors.yellowAccent,
+        selectedItemColor: Colors.redAccent,
+        //unselectedItemColor: Colors.grey,
+        selectedFontSize: 13,
+        unselectedFontSize: 13,
+        items: [
+          _buildItem(TabItem.hotel),
+          _buildItem(TabItem.gift),
+          _buildItem(TabItem.account),
+        ],
+        currentIndex: _selectedIndex,
+      ),
+    );
+  }
+
+  BottomNavigationBarItem _buildItem(TabItem tabItem) {
+    final itemData = TabItemData.allTabs[tabItem];
+
+    return BottomNavigationBarItem(
+      icon: Icon(itemData.icon),
+      label: itemData.label,
     );
   }
 }

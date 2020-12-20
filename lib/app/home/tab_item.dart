@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:long_stay_hotel/constants/keys.dart';
 import 'package:long_stay_hotel/constants/strings.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 enum TabItem { hotel, gift, account }
@@ -21,17 +21,17 @@ class TabItemData {
     TabItem.hotel: TabItemData(
       key: Keys.hotelTab,
       label: Strings.hotel,
-      icon: LineAwesomeIcons.hotel,
+      icon: LineAwesomeIcons.home,
     ),
     TabItem.gift: TabItemData(
       key: Keys.giftTab,
       label: Strings.gift,
-      icon: LineAwesomeIcons.gift,
+      icon: LineAwesomeIcons.gifts,
     ),
     TabItem.account: TabItemData(
       key: Keys.accountTab,
       label: Strings.account,
-      icon: FontAwesomeIcons.hotel,
+      icon: LineAwesomeIcons.user_1,
     ),
   };
 }
